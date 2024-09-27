@@ -1,0 +1,16 @@
+apiVersion: deploy.cloud.google.com/v1
+kind: DeliveryPipeline
+metadata:
+  name: my-pipeline
+spec:
+  stages:
+    - name: dev
+      targetId: dev-target
+      deploymentJobs:
+        - name: deploy-job
+          type: rollouts
+  serialPipeline:
+    stages:
+      - targetId: dev-target
+        strategy:
+          standard: {}
