@@ -1,11 +1,11 @@
 steps:
   # Step 1: Build the Docker image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/endless-fire-432406-d8/my-app', '.']
+    args: ['build', '-t', 'gcr.io/endless-fire-432406-d8/my-app:latest', '.']
 
   # Step 2: Push the Docker image to Google Container Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/$endless-fire-432406-d8/my-app']
+    args: ['push', 'gcr.io/$endless-fire-432406-d8/my-app:latest']
 
   # Step 3: Deploy to GKE
   - name: 'gcr.io/cloud-builders/kubectl'
