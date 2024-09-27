@@ -1,11 +1,11 @@
 steps:
   # Step 1: Build the Docker image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'us-south1-docker.pkg.dev/myproject/myimage', '.']
+    args: ['build', '-t', 'global-docker.pkg.dev/myproject/myimage', '.']
 
   # Step 2: Push the Docker image to Google Container Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'us-south1-docker.pkg.dev/myproject/myimage']
+    args: ['push', 'global-docker.pkg.dev/myproject/myimage']
 
   # Step 3: Deploy to GKE
   - name: 'gcr.io/cloud-builders/kubectl'
@@ -13,16 +13,16 @@ steps:
     args:
       - '-c'
       - |
-        kubectl set image deployment/my-app my-app=gcr.io/endless-fire-432406-d8/my-app
-        kubectl rollout status deployment/my-app
+        kubectl set image deployment/myimage myimage=global-docker.pkg.dev/myproject/myimage
+        kubectl rollout status deployment/myimage
 
 # Optionally specify the timeout (in seconds)
 timeout: 1200s
 
 # Substitutions for the build
 substitutions:
-  _APP_NAME: 'my-app'
-  _REGION: 'us-central1'
+  _APP_NAME: 'myimage'
+  _REGION: 'global'
   _CLUSTER_NAME: 'my-cluster'
 
 # Options to specify the options for Cloud Build
